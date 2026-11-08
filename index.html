@@ -1,6 +1,10 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Nurst Launcher: лаунчер Minecraft для Windows со сборками, модами и офлайн-режимом.">
 <title>Nurst Launcher</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
 /* Layout: one hero with a big download block, then a plain feature grid, install steps and FAQ. */
@@ -19,6 +23,8 @@
   --accent:#ff7a1f; --accent-fg:#1a0d03; --accent-soft:#3a200f; --accent-deep:#ffa45c; color-scheme:dark}
 
 *{box-sizing:border-box}
+html{color-scheme:light}
+body{margin:0;font-size:16px}
 body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.6;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
 .wrap{max-width:1040px;margin:0 auto}
@@ -45,6 +51,7 @@ nav a:hover{color:var(--accent-deep)}
   box-shadow:0 8px 24px -8px var(--accent);transition:transform .15s,filter .15s}
 .btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
 .btn:disabled{opacity:.7;cursor:progress;transform:none}
+a.btn{text-decoration:none}
 .btn svg{width:20px;height:20px}
 .meta{font-size:14px;color:var(--muted)}
 .status{margin-top:14px;font-size:14px;min-height:22px;color:var(--muted)}
@@ -100,6 +107,8 @@ footer{padding-block:36px;border-top:1px solid var(--line);color:var(--muted);fo
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
+</head>
+<body>
 <div class="wrap" id="top">
   <header class="top">
     <div class="brand"><i aria-hidden="true">N</i>Nurst Launcher</div>
@@ -111,16 +120,14 @@ footer{padding-block:36px;border-top:1px solid var(--line);color:var(--muted);fo
       <div>
         <div class="eyebrow">Лаунчер для Minecraft · Windows</div>
         <h1>Запускай Minecraft <em>быстро</em> и без лишнего</h1>
-        <p class="lead">Nurst Launcher устанавливает нужную версию игры, подтягивает всё необходимое и запускает её в пару кликов. Один небольшой файл, без установщика.</p>
+        <p class="lead">Nurst Launcher устанавливает нужную версию игры, создаёт сборки с модами и запускает Minecraft в пару кликов. Один небольшой файл, без установщика.</p>
         <div class="cta">
-          <button class="btn" id="dl" type="button">
+          <a class="btn" id="dl" href="NurstLauncher.exe" download="NurstLauncher.exe">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>
-            <span id="dlText">Скачать для Windows</span>
-          </button>
+            <span>Скачать для Windows</span>
+          </a>
           <span class="meta">Версия для Windows 64-bit · около 18 МБ</span>
         </div>
-        <div class="bar" id="bar" hidden><b id="barFill"></b></div>
-        <div class="status" id="status" role="status" aria-live="polite"></div>
       </div>
 
       <aside class="panel" aria-label="Характеристики">
@@ -150,12 +157,12 @@ footer{padding-block:36px;border-top:1px solid var(--line);color:var(--muted);fo
       <h2>Что умеет лаунчер</h2>
       <p class="sub">Всё нужное для игры собрано в одном окне. Ничего не надо искать и скачивать по отдельности.</p>
       <div class="grid">
-        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9z"/></svg></div><h3>Запуск в один клик</h3><p>Выбираешь версию, нажимаешь «Играть». Лаунчер сам скачивает файлы игры и запускает её.</p></div>
-        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5-9 5-9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg></div><h3>Любые версии</h3><p>Релизы и снапшоты Minecraft. Каждую версию можно держать отдельно и переключаться между ними.</p></div>
-        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div><h3>Моды и сборки</h3><p>Поддержка загрузчиков модов и сборок, чтобы играть с модами без ручной настройки.</p></div>
-        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><h3>Нужная Java</h3><p>Подходящая для версии игры Java подбирается автоматически. Руками ничего ставить не нужно.</p></div>
-        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg></div><h3>Один файл</h3><p>Запускается как обычная программа. Не нужен установщик, и мусора в системе не остаётся.</p></div>
-        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Быстрый старт</h3><p>Лёгкое окно открывается сразу. Не ждёшь, пока загрузится тяжёлый интерфейс.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9z"/></svg></div><h3>Запуск в один клик</h3><p>Вводишь ник, выбираешь версию и нажимаешь «Играть». Лаунчер сам скачивает файлы игры и запускает её.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5-9 5-9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg></div><h3>Все версии Minecraft</h3><p>В списке есть все версии, включая популярную 1.16.5. Переключаться между ними можно в любой момент.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div><h3>Сборки и загрузчики модов</h3><p>Выбери версию и загрузчик (например, Fabric), и лаунчер создаст сборку с отдельной папкой и названием.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><h3>Офлайн-режим</h3><p>Заходи на серверы с офлайн-авторизацией, просто указав ник. Аккаунт для этого не нужен.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg></div><h3>Один файл</h3><p>Запускается как обычная программа. Не нужен установщик, а игра хранится в папке .nurstclient.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Удобное окно</h3><p>Оранжевый интерфейс, который можно растянуть или развернуть на весь экран.</p></div>
       </div>
     </section>
 
@@ -163,9 +170,9 @@ footer{padding-block:36px;border-top:1px solid var(--line);color:var(--muted);fo
       <h2>Как начать</h2>
       <p class="sub">Три шага от скачивания до игры.</p>
       <ol class="steps">
-        <li><b class="n">1</b><span>Нажми «Скачать для Windows». Браузер предложит сохранить файл <code>NurstLauncher.zip</code>.</span></li>
-        <li><b class="n">2</b><span>Распакуй архив в любую папку. Внутри лежит <code>NurstLauncher.exe</code>.</span></li>
-        <li><b class="n">3</b><span>Запусти <code>NurstLauncher.exe</code>, выбери версию игры и нажми «Играть».</span></li>
+        <li><b class="n">1</b><span>Нажми «Скачать для Windows». Браузер сохранит файл <code>NurstLauncher.exe</code>.</span></li>
+        <li><b class="n">2</b><span>Запусти <code>NurstLauncher.exe</code>. Если Windows покажет предупреждение, нажми «Подробнее» и «Выполнить в любом случае».</span></li>
+        <li><b class="n">3</b><span>Введи ник, выбери версию или сборку и нажми «Играть».</span></li>
       </ol>
     </section>
 
@@ -196,38 +203,5 @@ footer{padding-block:36px;border-top:1px solid var(--line);color:var(--muted);fo
 
   <footer><span>Nurst Launcher</span><span>Не является официальным продуктом Mojang или Microsoft.</span></footer>
 </div>
-
-<script>
-(function(){
-  var PARTS=['nl1.ttf','nl2.ttf'];
-  var btn=document.getElementById('dl'), txt=document.getElementById('dlText'),
-      st=document.getElementById('status'), bar=document.getElementById('bar'), fill=document.getElementById('barFill');
-  function say(m,err){st.textContent=m;st.className='status'+(err?' err':'')}
-  btn.addEventListener('click',async function(){
-    btn.disabled=true; txt.textContent='Загрузка…'; bar.hidden=false; fill.style.width='0%'; say('');
-    try{
-      var dl=await claude.use('downloads');
-      if(!dl){throw {code:'unavailable'}}
-      var blobs=[];
-      for(var i=0;i<PARTS.length;i++){
-        var r=await fetch(PARTS[i]);
-        if(!r.ok)throw new Error('http '+r.status);
-        blobs.push(await r.blob());
-        fill.style.width=Math.round((i+1)/PARTS.length*100)+'%';
-      }
-      var file=new Blob(blobs);
-      txt.textContent='Сохранение…';
-      await dl.save({filename:'NurstLauncher.zip',data:file});
-      say('Готово. Распакуй архив и запусти NurstLauncher.exe.');
-    }catch(e){
-      if(e&&e.code==='declined'){say('Сохранение отменено. Нажми кнопку ещё раз, когда будешь готов.')}
-      else if(e&&(e.code==='unavailable'||e.code==='not_granted')){say('В этом окне скачивание недоступно. Открой страницу в Claude на компьютере или в браузере.',true)}
-      else{say('Не удалось скачать файл. Проверь соединение и попробуй ещё раз.',true)}
-    }finally{
-      btn.disabled=false; txt.textContent='Скачать для Windows'; bar.hidden=true;
-    }
-  });
-})();
-</script>
-
-</body></html>
+</body>
+</html>
