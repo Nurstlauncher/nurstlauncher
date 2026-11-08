@@ -1,0 +1,233 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nurst Launcher</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one hero with a big download block, then a plain feature grid, install steps and FAQ. */
+:root{
+  --bg:#fff8f1; --surface:#ffffff; --fg:#2a1a0d; --muted:#7a5f48; --line:#f0dcc8;
+  --accent:#e8590c; --accent-fg:#ffffff; --accent-soft:#ffe8d6; --accent-deep:#b8420a;
+  --font-display:'Unbounded','Trebuchet MS',sans-serif;
+  --font-body:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#150d07; --surface:#1f140c; --fg:#fbeee2; --muted:#c2a58e; --line:#38251a;
+  --accent:#ff7a1f; --accent-fg:#1a0d03; --accent-soft:#3a200f; --accent-deep:#ffa45c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#150d07; --surface:#1f140c; --fg:#fbeee2; --muted:#c2a58e; --line:#38251a;
+  --accent:#ff7a1f; --accent-fg:#1a0d03; --accent-soft:#3a200f; --accent-deep:#ffa45c; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent-deep)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:18px}
+.brand i{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:var(--accent-fg);font-style:normal;font-size:16px}
+nav{display:flex;gap:20px;font-weight:500;font-size:15px}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--accent-deep)}
+
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-block:48px 56px}
+.eyebrow{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-deep)}
+.hero h1{font-size:clamp(34px,6vw,60px);font-weight:700;margin:14px 0 18px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.lead{font-size:18px;color:var(--muted);max-width:52ch}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:28px}
+.btn{appearance:none;border:0;cursor:pointer;background:var(--accent);color:var(--accent-fg);font:700 17px var(--font-body);
+  padding:16px 28px;border-radius:12px;display:inline-flex;align-items:center;gap:10px;min-height:52px;
+  box-shadow:0 8px 24px -8px var(--accent);transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn:disabled{opacity:.7;cursor:progress;transform:none}
+.btn svg{width:20px;height:20px}
+.meta{font-size:14px;color:var(--muted)}
+.status{margin-top:14px;font-size:14px;min-height:22px;color:var(--muted)}
+.status.err{color:#c92a2a}
+:root[data-theme="dark"] .status.err{color:#ff8787}
+.bar{height:6px;border-radius:3px;background:var(--line);margin-top:10px;overflow:hidden;max-width:360px}
+.bar b{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;min-width:0}
+.panel h2{font-size:14px;font-family:var(--font-mono);font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0}
+.spec dt{color:var(--muted);font-size:14px}
+.spec dd{margin:0;font-weight:700;text-align:right;min-width:0;overflow-wrap:anywhere}
+
+section.block{padding-block:48px;border-top:1px solid var(--line)}
+section.block>h2{font-size:clamp(24px,3.5vw,34px);margin-bottom:12px}
+section.block>.sub{color:var(--muted);max-width:60ch;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat{padding:22px;border-radius:16px;background:var(--surface);border:1px solid var(--line);min-width:0}
+.feat .ic{width:40px;height:40px;border-radius:10px;background:var(--accent-soft);color:var(--accent-deep);display:grid;place-items:center;margin-bottom:14px}
+.feat .ic svg{width:22px;height:22px}
+.feat h3{font-size:16px;margin-bottom:8px;font-weight:500}
+.feat p{color:var(--muted);font-size:15px}
+
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:720px}
+ol.steps li{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:16px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+ol.steps b.n{font-family:var(--font-mono);color:var(--accent-fg);background:var(--accent);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px}
+ol.steps span{min-width:0}
+
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 20px;max-width:720px}
+details+details{margin-top:10px}
+summary{cursor:pointer;font-weight:700}
+details p{color:var(--muted);margin-top:10px}
+
+footer{padding-block:36px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:22px;border-radius:16px;background:var(--accent-soft);min-width:0}
+.stat b{display:block;font-family:var(--font-display);font-size:clamp(26px,4vw,38px);color:var(--accent-deep);margin-bottom:6px;line-height:1.1}
+.stat span{color:var(--fg);font-size:15px}
+@media (max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+.reqs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.req{padding:18px;border-radius:14px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.req small{display:block;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.req b{font-size:17px}
+.final{margin-block:48px;padding:40px 28px;border-radius:24px;background:var(--accent);color:var(--accent-fg);text-align:center;display:grid;gap:14px;justify-items:center}
+.final h2{font-size:clamp(24px,4vw,36px)}
+.final p{max-width:48ch;opacity:.92}
+.final a{background:var(--accent-fg);color:var(--accent-deep);font-weight:700;text-decoration:none;padding:14px 26px;border-radius:12px}
+@media (max-width:860px){.reqs{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-block:28px 40px}.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.grid{grid-template-columns:1fr}nav{display:none}.btn{width:100%;justify-content:center}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap" id="top">
+  <header class="top">
+    <div class="brand"><i aria-hidden="true">N</i>Nurst Launcher</div>
+    <nav><a href="#features">Возможности</a><a href="#install">Установка</a><a href="#faq">Вопросы</a></nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Лаунчер для Minecraft · Windows</div>
+        <h1>Запускай Minecraft <em>быстро</em> и без лишнего</h1>
+        <p class="lead">Nurst Launcher устанавливает нужную версию игры, подтягивает всё необходимое и запускает её в пару кликов. Один небольшой файл, без установщика.</p>
+        <div class="cta">
+          <button class="btn" id="dl" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>
+            <span id="dlText">Скачать для Windows</span>
+          </button>
+          <span class="meta">Версия для Windows 64-bit · около 18 МБ</span>
+        </div>
+        <div class="bar" id="bar" hidden><b id="barFill"></b></div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </div>
+
+      <aside class="panel" aria-label="Характеристики">
+        <h2>О программе</h2>
+        <dl class="spec">
+          <dt>Система</dt><dd>Windows 10 / 11, x64</dd>
+          <dt>Размер</dt><dd>≈ 18 МБ</dd>
+          <dt>Файл</dt><dd>NurstLauncher.exe</dd>
+          <dt>Установка</dt><dd>Не требуется</dd>
+          <dt>Интерфейс</dt><dd>Оконное приложение</dd>
+        </dl>
+      </aside>
+    </div>
+
+    <section class="block" id="why">
+      <h2>Почему Nurst Launcher</h2>
+      <p class="sub">Лаунчер сделан так, чтобы между тобой и игрой было как можно меньше действий.</p>
+      <div class="stats">
+        <div class="stat"><b>1</b><span>клик от выбора версии до запуска игры</span></div>
+        <div class="stat"><b>0</b><span>установщиков и лишних программ</span></div>
+        <div class="stat"><b>18 МБ</b><span>весь размер лаунчера</span></div>
+        <div class="stat"><b>1 файл</b><span>NurstLauncher.exe, и всё работает</span></div>
+      </div>
+    </section>
+
+    <section class="block" id="features">
+      <h2>Что умеет лаунчер</h2>
+      <p class="sub">Всё нужное для игры собрано в одном окне. Ничего не надо искать и скачивать по отдельности.</p>
+      <div class="grid">
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9z"/></svg></div><h3>Запуск в один клик</h3><p>Выбираешь версию, нажимаешь «Играть». Лаунчер сам скачивает файлы игры и запускает её.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5-9 5-9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg></div><h3>Любые версии</h3><p>Релизы и снапшоты Minecraft. Каждую версию можно держать отдельно и переключаться между ними.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div><h3>Моды и сборки</h3><p>Поддержка загрузчиков модов и сборок, чтобы играть с модами без ручной настройки.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><h3>Нужная Java</h3><p>Подходящая для версии игры Java подбирается автоматически. Руками ничего ставить не нужно.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg></div><h3>Один файл</h3><p>Запускается как обычная программа. Не нужен установщик, и мусора в системе не остаётся.</p></div>
+        <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Быстрый старт</h3><p>Лёгкое окно открывается сразу. Не ждёшь, пока загрузится тяжёлый интерфейс.</p></div>
+      </div>
+    </section>
+
+    <section class="block" id="install">
+      <h2>Как начать</h2>
+      <p class="sub">Три шага от скачивания до игры.</p>
+      <ol class="steps">
+        <li><b class="n">1</b><span>Нажми «Скачать для Windows». Браузер предложит сохранить файл <code>NurstLauncher.zip</code>.</span></li>
+        <li><b class="n">2</b><span>Распакуй архив в любую папку. Внутри лежит <code>NurstLauncher.exe</code>.</span></li>
+        <li><b class="n">3</b><span>Запусти <code>NurstLauncher.exe</code>, выбери версию игры и нажми «Играть».</span></li>
+      </ol>
+    </section>
+
+    <section class="block" id="reqs">
+      <h2>Системные требования</h2>
+      <p class="sub">Лаунчер лёгкий. Основную нагрузку создаёт сама игра.</p>
+      <div class="reqs">
+        <div class="req"><small>Система</small><b>Windows 10 / 11</b></div>
+        <div class="req"><small>Разрядность</small><b>64-bit</b></div>
+        <div class="req"><small>Место</small><b>20 МБ + файлы игры</b></div>
+        <div class="req"><small>Интернет</small><b>Для первой загрузки</b></div>
+      </div>
+    </section>
+
+    <section class="block" id="faq">
+      <h2>Частые вопросы</h2>
+      <p class="sub"></p>
+      <details><summary>Windows пишет «Неизвестный издатель»</summary><p>Так бывает с небольшими программами без платной подписи. Нажми «Подробнее», затем «Выполнить в любом случае». Скачивай лаунчер только с этой страницы.</p></details>
+      <details><summary>Нужно ли что-то устанавливать заранее?</summary><p>Нет. Программа запускается из папки, где лежит файл.</p></details>
+      <details><summary>Подойдёт ли Mac или Linux?</summary><p>Сейчас доступна только сборка для Windows 64-bit.</p></details>
+    </section>
+    <div class="final">
+      <h2>Готов играть?</h2>
+      <p>Скачай Nurst Launcher и запусти Minecraft за пару минут.</p>
+      <a href="#top" id="toTop">Вернуться к скачиванию</a>
+    </div>
+  </main>
+
+  <footer><span>Nurst Launcher</span><span>Не является официальным продуктом Mojang или Microsoft.</span></footer>
+</div>
+
+<script>
+(function(){
+  var PARTS=['nl1.ttf','nl2.ttf'];
+  var btn=document.getElementById('dl'), txt=document.getElementById('dlText'),
+      st=document.getElementById('status'), bar=document.getElementById('bar'), fill=document.getElementById('barFill');
+  function say(m,err){st.textContent=m;st.className='status'+(err?' err':'')}
+  btn.addEventListener('click',async function(){
+    btn.disabled=true; txt.textContent='Загрузка…'; bar.hidden=false; fill.style.width='0%'; say('');
+    try{
+      var dl=await claude.use('downloads');
+      if(!dl){throw {code:'unavailable'}}
+      var blobs=[];
+      for(var i=0;i<PARTS.length;i++){
+        var r=await fetch(PARTS[i]);
+        if(!r.ok)throw new Error('http '+r.status);
+        blobs.push(await r.blob());
+        fill.style.width=Math.round((i+1)/PARTS.length*100)+'%';
+      }
+      var file=new Blob(blobs);
+      txt.textContent='Сохранение…';
+      await dl.save({filename:'NurstLauncher.zip',data:file});
+      say('Готово. Распакуй архив и запусти NurstLauncher.exe.');
+    }catch(e){
+      if(e&&e.code==='declined'){say('Сохранение отменено. Нажми кнопку ещё раз, когда будешь готов.')}
+      else if(e&&(e.code==='unavailable'||e.code==='not_granted')){say('В этом окне скачивание недоступно. Открой страницу в Claude на компьютере или в браузере.',true)}
+      else{say('Не удалось скачать файл. Проверь соединение и попробуй ещё раз.',true)}
+    }finally{
+      btn.disabled=false; txt.textContent='Скачать для Windows'; bar.hidden=true;
+    }
+  });
+})();
+</script>
+
+</body></html>
